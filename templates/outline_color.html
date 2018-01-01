@@ -1,0 +1,32 @@
+{# Update card outline based on 24 hour percent change POS or NEG #}
+{% macro outline_color(result) %}
+{% if result.percent_change_24h[0] == '-' %}
+    class="col-md-4 card border-danger"
+{% else %}
+    class="col-md-4 card  border-success"
+{% endif %}
+{% endmacro %}
+
+
+{# Update card color based on 24 hour percent change POS or NEG #}
+{% macro text_color(result) %}
+{% if result.percent_change_24h[0] == '-' %}
+    class="card-body text-danger"
+{% else %}
+    class="card-body text-success"
+{% endif %}
+{% endmacro %}
+
+
+
+
+{% macro build_card_from_result(result) %}
+<div {{ outline_color(result) }}>
+    <div {{ text_color(result) }}>
+        <h5 class="card-title">{{ result.name.upper() }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Rank: {{ result.rank }}</h6>
+        <p>${{ result.price_usd }}</p>
+        <p>24hr % CHG: {{ result.percent_change_24h }}</p>
+    </div>
+</div>
+{% endmacro %}
